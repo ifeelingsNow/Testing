@@ -1,0 +1,145 @@
+﻿<Window x:Class="FSTCut.FSTDef"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:FSTCut"
+        Title="菲涅尔透镜" Height="650 " Width="650" WindowStartupLocation="CenterOwner" Icon="Img/header.ico">
+    <Window.Resources>
+        <local:WorkCoordsToString x:Key="SPC"/>
+        <local:CutCpstToString x:Key="CCC"/>
+        <local:SpdDirToString x:Key="SPDC"/>
+        <local:JetNoToString x:Key="JNC"/>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Width="30" Height="30" Source="Img/header.ico" Grid.Column="0"/>
+                                <ContentPresenter Grid.Column="1" VerticalAlignment="Center" ></ContentPresenter>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="Blue"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="rdOnly" TargetType="TextBox">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Background" Value="#FFEBF1F5"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="RowDefinition">
+            <Style.Setters>
+                <Setter Property="Height" Value="30"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+    <StackPanel>
+    <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Column="0" Grid.Row="0" Text="参数" FontSize="16" FontWeight="Bold" IsReadOnly="True" BorderThickness="2" Background="AliceBlue"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="数值" FontSize="16" FontWeight="Bold" IsReadOnly="True" BorderThickness="2" Background="AliceBlue"/>
+            <TextBox Grid.Column="0" Grid.Row="1" Text="工作坐标系" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="c_WorkAxis"/>
+            <TextBox Grid.Column="0" Grid.Row="2" Text="刀补号" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <ComboBox Grid.Column="1" Grid.Row="2" x:Name="c_CutCmp"/>
+            <TextBox Grid.Column="0" Grid.Row="3" Text="主轴旋转方向" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" x:Name="c_MainCutDir"/>
+            <TextBox Grid.Column="0" Grid.Row="4" Text="喷气号" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <ComboBox Grid.Column="1" Grid.Row="4" x:Name="c_JetNo" SelectionChanged="c_JetNo_SelectionChanged"/>
+            <TextBox Grid.Column="0" Grid.Row="5" Text="工件半径" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="5" x:Name="c_PartSize" KeyDown="c_PartSize_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="6" Text="加工循环次数" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="6" x:Name="c_TotalLoops" KeyDown="c_TotalLoops_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="7" Text="切深" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="7" x:Name="c_DepthOfCut" KeyDown="c_DepthOfCut_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="8" Text="进给速度" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="8" x:Name="c_FeedRate" KeyDown="c_FeedRate_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="9" Text="主轴转速" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="9" x:Name="c_SpindleSpeed" KeyDown="c_SpindleSpeed_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="10" Text="LeadInX" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="10" x:Name="c_LeadInX" KeyDown="c_LeadInX_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="11" Text="LeadInZ" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="11" x:Name="c_LeadInZ" KeyDown="c_LeadInZ_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="12" Text="LeadOutZ" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="12" x:Name="c_LeadOutZ" KeyDown="c_LeadOutZ_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="13" Text="等等Z" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="13" x:Name="c_HZ" KeyDown="c_HZ_KeyDown"/>
+            <TextBox Grid.Column="0" Grid.Row="14" Text="文件名称" IsReadOnly="True" Style="{StaticResource rdOnly}"/>
+            <TextBox Grid.Column="1" Grid.Row="14" x:Name="c_NCFilePath" GotFocus="c_NCFilePath_GotFocus" KeyDown="c_NCFilePath_KeyDown" LostFocus="c_NCFilePath_LostFocus"/>
+            <!--<TextBlock Text="精车" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" Grid.Column="2"/>-->
+    </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="导入数据文件:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBox x:Name="c_DataFile" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,15,5"></TextBox>
+            <Button x:Name="c_DataBrowse" Content="浏览" Margin="5" Width="100" Height="30" Click="c_DataBrowse_Click" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="导出:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="85" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="c_OFilePath" Width="400" Margin="0,5,5,5"></TextBox>
+            <Button x:Name="c_Browse" Content="浏览" Margin="5" Width="60" Height="30" Click="c_Browse_Click" />
+            <Button x:Name="c_Gen" Content="生成"  Width="60" Height="30" Click="c_Gen_Click" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Width="95" Height="30" HorizontalAlignment="Left" Margin="5,5,14,5" VerticalAlignment="Top" Content="测试" Click="Button_Click_Test"/>
+        <Button Content="生成cmp文件" HorizontalAlignment="Right" Margin="5,5,14,5" VerticalAlignment="Top" Width="95" Height="30" Click="Button_Click_GenCmp"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
